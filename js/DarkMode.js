@@ -68,10 +68,12 @@ window.onload = function () {
 
 function dark() {
   // 深色模式
-  document.querySelector("html").dataset.bsTheme = 'dark';
+  document.querySelector('html').dataset.bsTheme = 'dark';
+  document.querySelector('#page-content-wrapper').classList.remove('bg-light')
 }
 
 function light() {
   // 淺色模式
-  document.querySelector("html").dataset.bsTheme = 'light';
+  document.querySelector('html').dataset.bsTheme = 'light';
+  document.querySelector('#page-content-wrapper').classList.add('bg-light')
 }
