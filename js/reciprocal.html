@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha256-MBffSnbbXwHCuZtgPYiwMQbfE7z+GOZ7fBPCNB06Z98=" crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+
+    /* 這裡是一些CSS樣式，讓你的倒數計時器更漂亮 */
+
+    .container {
+      margin: 20px auto;
+      width: 80%;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card-title {
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px auto;
+      width: 80%;
+    }
+
+    .labels li {
+      font-size: 18px;
+      font-weight: bold;
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div>
+      <div class="py-5"></div>
+      <div class="h1 fw-bold text-center py-5">統測時間倒數</div>
+      <div id="timer" class=""></div>
+    </div>
+  </div>
+  <script>
+    // 獲取統測的日期和時間
+    let examDate = new Date("2024-04-27 09:00:00");
+
+    // 設置一個定時器，每10毫秒更新一次顯示
+    let timer = setInterval(function () {
+      // 獲取當前的日期和時間
+      let now = new Date();
+
+      // 計算距離統測的時間差，單位為毫秒
+      let timeLeft = examDate - now;
+
+      // 如果時間差小於0，表示統測已經開始或結束
+      if (timeLeft < 0) {
+        // 清除定時器
+        clearInterval(timer);
+
+        // 顯示統測已經結束的訊息
+        document.getElementById("timer").innerHTML = "統測已經結束！";
+      } else {
+        // 將時間差轉換為天、小時、分鐘、秒和毫秒
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+        let seconds = Math.floor((timeLeft / 1000) % 60);
+        let milliseconds = timeLeft % 1000;
+
+        // 顯示倒數計時器，使用Bootstrap的樣式
+        document.getElementById("timer").innerHTML = `
+        <div>
+            <div class="row">
+              <div class="col-sm">
+                <div class="card text-white bg-primary mb-3">
+                  <div class="card-header">天</div>
+                  <div class="card-body">
+                    <h1 class="card-title">${days}</h1>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="card text-white bg-secondary mb-3">
+                  <div class="card-header">小時</div>
+                  <div class="card-body">
+                    <h1 class="card-title">${hours}</h1>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="card text-white bg-success mb-3">
+                  <div class="card-header">分鐘</div>
+                  <div class="card-body">
+                    <h1 class="card-title">${minutes}</h1>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-header">秒</div>
+                  <div class="card-body">
+                    <h1 class="card-title">${seconds}</h1>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="card text-white bg-info mb-3">
+                  <div class="card-header">毫秒</div>
+                  <div class="card-body">
+                    <h1 class="card-title">${milliseconds}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }, 1);
+  </script>
+</body>
+
+</html>
